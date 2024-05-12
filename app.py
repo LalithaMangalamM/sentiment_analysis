@@ -6,7 +6,7 @@ import nltk
 
 
 # Load the model and vectorizer
-@st.cache
+@st.cache_resource
 def load_models():
     with open("model.pkl", "rb") as f:
         loaded_model = pickle.load(f)
@@ -14,12 +14,13 @@ def load_models():
 
     with open("vectorizer.pkl", "rb") as f:
         loaded_vectorizer = pickle.load(f)
+    # Download NLTK data
+    nltk.download("punkt")
+    nltk.download("stopwords")
     return loaded_model,loaded_vectorizer
 
 
-# Download NLTK data
-nltk.download("punkt")
-nltk.download("stopwords")
+
 
 # Function to remove stopwords and tokenize the input text
 def preprocess_text(text):
